@@ -1,11 +1,13 @@
 "use client"
 
+import AuthForm from "../components/AuthForm"
 import { useState } from "react"
 import { loginUser } from "../lib/auth"
 import { singinFormFields, type LoginForm } from "../config/config"
-import AuthForm from "../components/AuthForm"
+import { useRouter } from "next/navigation"
 
 export default function Login() {
+  const router = useRouter()
   const [formData, setFormData] = useState<LoginForm>({
     email: "",
     password: "",
@@ -19,8 +21,8 @@ export default function Login() {
     try {
       const res = await loginUser(formData)
 
-      if (res.ok) {
-        alert(res.message)
+      if (res.token.accessToken) {
+        router.push("/dashboard")
       }
     } catch (err) {
       console.error(`Error: ${err}`)
