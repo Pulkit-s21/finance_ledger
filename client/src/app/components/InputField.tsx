@@ -1,10 +1,10 @@
-import { LoginForm, RegisterForm } from "../config/config"
+import { RegisterForm } from "../config/config"
 
 type InputFieldProps = {
   label: string
   id: string
   type: string
-  setFormData: React.Dispatch<React.SetStateAction<RegisterForm | LoginForm>>
+  setFormData: React.Dispatch<React.SetStateAction<RegisterForm>>
 }
 
 export default function InputField({
@@ -25,7 +25,7 @@ export default function InputField({
         id={id}
         name={id}
         type={type}
-        className="rounded-md border border-black/[.08] bg-transparent px-3 py-2 text-black outline-none focus:border-zinc-400 dark:border-white/[.145] dark:text-zinc-50"
+        className="rounded-md border border-black/8 bg-transparent px-3 py-2 text-black outline-none focus:border-zinc-400 dark:border-white/[.145] dark:text-zinc-50"
         onChange={(e) =>
           setFormData((prev) => ({ ...prev, [id]: e.target.value }))
         }

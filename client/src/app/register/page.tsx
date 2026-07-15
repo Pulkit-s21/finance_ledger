@@ -3,8 +3,8 @@
 import { useState } from "react"
 import { createUser } from "../lib/auth"
 import { useRouter } from "next/navigation"
-import type { RegisterForm } from "../config/config"
-import SignupForm from "../components/SignupForm"
+import { registrationFormFields, type RegisterForm } from "../config/config"
+import AuthForm from "../components/AuthForm"
 
 export default function Register() {
   const router = useRouter()
@@ -31,14 +31,15 @@ export default function Register() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center bg-zinc-50 px-4 py-16 dark:bg-black">
-      <div className="w-full max-w-sm rounded-xl border border-black/[.08] bg-white p-8 dark:border-white/[.145] dark:bg-black">
-        <h1 className="mb-6 text-2xl font-semibold text-black dark:text-zinc-50">
-          Create your account
-        </h1>
-
-        <SignupForm handleSubmit={handleSubmit} setFormData={setFormData} />
-      </div>
-    </div>
+    <AuthForm
+      title="Create your account"
+      handleSubmit={handleSubmit}
+      setFormData={setFormData}
+      mapFields={registrationFormFields}
+      label="Already have an account? "
+      btnText="Sign up"
+      msgText="Sign in"
+      href="/"
+    />
   )
 }
