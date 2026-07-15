@@ -1,5 +1,5 @@
-import { createUser, findByEmail, findById } from "../repositories/user.repostiory"
 import bcrypt from "bcrypt"
+import { createUser, findByEmail } from "../repositories/user.repostiory"
 import { generateAccessToken } from "../utils/jwt"
 
 export const registerUser = async (
