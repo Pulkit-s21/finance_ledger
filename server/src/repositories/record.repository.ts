@@ -18,3 +18,9 @@ export const createRecord = async (
   })
 }
 
+export const getRecords = async () => {
+  return prisma.record.findMany({
+    omit: { updatedAt: true, userId: true },
+    orderBy: { createdAt: "desc" },
+  })
+}

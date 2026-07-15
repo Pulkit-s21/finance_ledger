@@ -1,4 +1,4 @@
-import { createRecord } from "../repositories/record.repository"
+import { createRecord, getRecords } from "../repositories/record.repository"
 
 export const registerRecord = async (
   userId: string,
@@ -10,4 +10,10 @@ export const registerRecord = async (
   const record = await createRecord(userId, amount, category, date, description)
 
   return record
+}
+
+export const getAllRecords = async () => {
+  const records = await getRecords()
+
+  return records
 }

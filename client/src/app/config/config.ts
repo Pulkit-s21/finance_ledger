@@ -44,3 +44,15 @@ export const singinFormFields = [
     type: "password",
   },
 ]
+
+export type Category = "INCOME" | "EXPENSE" | "INVESTMENT"
+
+export const categories: Category[] = ["INCOME", "EXPENSE", "INVESTMENT"]
+
+export type Record = {
+  id: string
+  amount: number
+  category: Category
+  date: Date
+  description: string | null
+}

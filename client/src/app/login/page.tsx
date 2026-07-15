@@ -22,6 +22,7 @@ export default function Login() {
       const res = await loginUser(formData)
 
       if (res.token.accessToken) {
+        localStorage.setItem("token", res.token.accessToken)
         router.push("/dashboard")
       }
     } catch (err) {

@@ -4,7 +4,7 @@ import { JwtPayload } from "../constants/constants"
 const secretKey = process.env.JWT_KEY!
 
 export const generateAccessToken = async (userId: string) => {
-  return jwt.sign({ userId }, secretKey, { expiresIn: "15m" })
+  return jwt.sign({ userId }, secretKey, { expiresIn: "30m" })
 }
 
 export const verifyToken = async (token: string) => {
