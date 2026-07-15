@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Record } from "../config/config"
+import { categories, Record } from "../config/config"
 import { registerRecord } from "../lib/record"
 import RecordForm from "./RecordForm"
 
@@ -11,10 +11,12 @@ export default function AddRecordForm({ setRecords }: Props) {
   const [recordData, setRecordData] = useState<Record>({
     id: "",
     amount: 0,
-    category: "EXPENSE",
+    category: categories[0],
     date: new Date(),
     description: "",
+    deleted: false,
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -22,19 +24,45 @@ export default function AddRecordForm({ setRecords }: Props) {
     const { amount, category, date, description } = recordData
 
     if (!amount || !category || !date || !description) return
+    if (isLoading) return
 
-    const { record } = await registerRecord(recordData)
+    setIsLoading(true)
 
-    setRecords((prev) => [record, ...prev])
+    try {
+      const { record } = await registerRecord(recordData)
+
+      setRecords((prev) => [record, ...prev])
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
-    <div className="w-full rounded-xl border border-black/8 bg-white p-6 dark:border-white/[.145] dark:bg-black">
-      <h2 className="mb-4 text-lg font-semibold text-black dark:text-zinc-50">
-        Add record
-      </h2>
+    <div className="w-full rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="mb-5 flex items-center gap-2.5">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-4 w-4"
+          >
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </div>
+        <h2 className="text-lg font-semibold text-foreground">Add record</h2>
+      </div>
 
-      <RecordForm handleSubmit={handleSubmit} setRecordData={setRecordData} />
+      <RecordForm
+        recordData={recordData}
+        handleSubmit={handleSubmit}
+        setRecordData={setRecordData}
+        loading={isLoading}
+      />
     </div>
   )
 }

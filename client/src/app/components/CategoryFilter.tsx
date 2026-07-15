@@ -1,28 +1,40 @@
-import { categories } from "../config/config"
+import { categories, categoryStyles } from "../config/config"
 
 type Props = {
+  category: string
   setCategory: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function CategoryFilter({ setCategory }: Props) {
+export default function CategoryFilter({ category, setCategory }: Props) {
   return (
     <div className="flex flex-wrap gap-2">
       <button
         type="button"
-        className="rounded-full border border-black/8 px-4 py-1.5 text-sm font-medium text-black dark:border-white/[.145] dark:text-zinc-50"
+        className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+          category === "all"
+            ? "border-accent bg-accent text-accent-foreground"
+            : "border-border text-muted hover:border-accent/40"
+        }`}
         onClick={() => setCategory("all")}
       >
         All
       </button>
 
-      {categories.map((category) => (
+      {categories.map((c) => (
         <button
-          key={category}
+          key={c}
           type="button"
-          className="rounded-full border border-black/8 px-4 py-1.5 text-sm font-medium text-zinc-600 dark:border-white/[.145] dark:text-zinc-400"
-          onClick={() => setCategory(category)}
+          className={`flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+            category === c
+              ? "border-accent bg-accent text-accent-foreground"
+              : "border-border text-muted hover:border-accent/40"
+          }`}
+          onClick={() => setCategory(c)}
         >
-          {category}
+          <span
+            className={`h-1.5 w-1.5 rounded-full ${category === c ? "bg-accent-foreground" : categoryStyles[c].dot}`}
+          />
+          {c}
         </button>
       ))}
     </div>

@@ -13,10 +13,14 @@ export default function Register() {
     email: "",
     password: "",
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.name || !formData.email || !formData.password) return
+    if (isLoading) return
+
+    setIsLoading(true)
 
     try {
       const res = await createUser(formData)
@@ -27,6 +31,8 @@ export default function Register() {
       }
     } catch (err) {
       console.error(`Error: ${err}`)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -40,6 +46,7 @@ export default function Register() {
       btnText="Sign up"
       msgText="Sign in"
       href="/"
+      loading={isLoading}
     />
   )
 }

@@ -11,3 +11,15 @@ export const getRecords = async () => {
 
   return res.data
 }
+
+export const deleteRecord = async (data: string) => {
+  const res = await api.post("/record/delete", { id: data })
+
+  return res.data
+}
+
+export const updateRecord = async (data: unknown) => {
+  const res = await api.post("/record/update", data)
+
+  return res.data
+}

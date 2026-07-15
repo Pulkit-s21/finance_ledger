@@ -12,11 +12,15 @@ export default function Login() {
     email: "",
     password: "",
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!formData.email || !formData.password) return
+    if (isLoading) return
+
+    setIsLoading(true)
 
     try {
       const res = await loginUser(formData)
@@ -27,6 +31,8 @@ export default function Login() {
       }
     } catch (err) {
       console.error(`Error: ${err}`)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -40,6 +46,7 @@ export default function Login() {
       btnText="Sign in"
       msgText="Sign up"
       href="/register"
+      loading={isLoading}
     />
   )
 }

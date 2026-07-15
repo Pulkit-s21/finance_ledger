@@ -14,18 +14,16 @@ export default function InputField({
   setFormData,
 }: InputFieldProps) {
   return (
-    <div className="flex flex-col gap-1">
-      <label
-        htmlFor={id}
-        className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
-      >
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-sm font-medium text-foreground">
         {label}
       </label>
       <input
         id={id}
         name={id}
         type={type}
-        className="rounded-md border border-black/8 bg-transparent px-3 py-2 text-black outline-none focus:border-zinc-400 dark:border-white/[.145] dark:text-zinc-50"
+        placeholder={label}
+        className="rounded-lg border border-border bg-background px-3.5 py-2.5 text-foreground placeholder:text-muted/60 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
         onChange={(e) =>
           setFormData((prev) => ({ ...prev, [id]: e.target.value }))
         }

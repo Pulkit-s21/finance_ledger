@@ -16,7 +16,7 @@ export const authMiddleware = async (
 
   const decoded = await verifyToken(token)
 
-  if (!decoded) throw new Error("Invalid or expired token")
+  if (!decoded) return res.status(401).json({ error: "Invalid token" })
 
   req.userId = decoded.userId
 

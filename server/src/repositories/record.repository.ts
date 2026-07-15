@@ -20,7 +20,25 @@ export const createRecord = async (
 
 export const getRecords = async () => {
   return prisma.record.findMany({
+    where: { deleted: false },
     omit: { updatedAt: true, userId: true },
     orderBy: { createdAt: "desc" },
+  })
+}
+
+export const deleteRecord = async (id: string) => {
+  return prisma.record.update({ where: { id }, data: { deleted: true } })
+}
+
+export const updateRecord = async (
+  id: string,
+  amount: number,
+  category: "EXPENSE" | "INCOME" | "INVESTMENT",
+  date: Date,
+  description: string,
+) => {
+  return prisma.record.update({
+    where: { id },
+    data: { amount, category, date, description },
   })
 }

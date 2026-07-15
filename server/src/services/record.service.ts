@@ -1,4 +1,9 @@
-import { createRecord, getRecords } from "../repositories/record.repository"
+import {
+  createRecord,
+  deleteRecord,
+  getRecords,
+  updateRecord,
+} from "../repositories/record.repository"
 
 export const registerRecord = async (
   userId: string,
@@ -16,4 +21,22 @@ export const getAllRecords = async () => {
   const records = await getRecords()
 
   return records
+}
+
+export const eraseRecord = async (id: string) => {
+  const res = await deleteRecord(id)
+
+  return res
+}
+
+export const editRecord = async (
+  id: string,
+  amount: number,
+  date: Date,
+  description: string,
+  category: "EXPENSE" | "INCOME" | "INVESTMENT",
+) => {
+  const record = await updateRecord(id, amount, category, date, description)
+
+  return record
 }

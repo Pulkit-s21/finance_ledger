@@ -8,12 +8,12 @@ type Props = {
 
 export default function FormMessage({ label, href, text }: Props) {
   return (
-    <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+    <p className="mt-2 border-t border-border pt-4 text-center text-sm text-muted">
       {label}{" "}
       <Link
         href={href}
         type="button"
-        className="font-medium text-zinc-950 dark:text-zinc-50"
+        className="font-medium text-accent hover:underline"
       >
         {text}
       </Link>
