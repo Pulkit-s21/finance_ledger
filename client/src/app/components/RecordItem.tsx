@@ -14,9 +14,9 @@ export default function RecordItem({ record, setRecords }: Props) {
   const [isUpdating, setIsUpdating] = useState(false)
 
   const handleDelete = async () => {
-    const res = await deleteRecord(record.id)
+    await deleteRecord(record.id)
 
-    console.log(res)
+    setRecords((prev) => prev.filter((r) => r.id !== record.id))
   }
 
   const handleUpdate = async (e: React.FormEvent) => {
@@ -84,7 +84,9 @@ export default function RecordItem({ record, setRecords }: Props) {
       </span>
 
       {record.description && (
-        <p className="text-sm text-muted">{record.description}</p>
+        <p className="line-clamp-2 text-sm text-muted">
+          {record.description}
+        </p>
       )}
 
       <div className="mt-1 flex gap-2 border-t border-border pt-3">
