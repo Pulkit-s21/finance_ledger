@@ -23,6 +23,12 @@ export default function Dashboard() {
         )
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      router.push("/")
+    }
+  }, [])
+
+  useEffect(() => {
     const fetchRecords = async () => {
       try {
         const res = await getRecords()
