@@ -22,7 +22,8 @@ export const createRecordController = async (req: Request, res: Response) => {
 }
 
 export const getAllRecordsController = async (req: Request, res: Response) => {
-  const records = await getAllRecords()
+  const userId = req.userId!
+  const records = await getAllRecords(userId)
 
   return res.status(200).json({ message: "All Records", records })
 }

@@ -17,8 +17,8 @@ export const registerRecord = async (
   return record
 }
 
-export const getAllRecords = async () => {
-  const records = await getRecords()
+export const getAllRecords = async (userId: string) => {
+  const records = await getRecords(userId)
 
   return records
 }
