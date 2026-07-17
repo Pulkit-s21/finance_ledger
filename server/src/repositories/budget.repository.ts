@@ -23,7 +23,7 @@ export const getBudget = async (
   })
 }
 
-export const getExpenseTotalForMonth = async (
+export const getExpenseRecordsForMonth = async (
   userId: string,
   month: number,
   year: number,
@@ -31,15 +31,13 @@ export const getExpenseTotalForMonth = async (
   const start = new Date(Date.UTC(year, month - 1, 1))
   const end = new Date(Date.UTC(year, month, 1))
 
-  const result = await prisma.record.aggregate({
+  return prisma.record.findMany({
     where: {
       userId,
       deleted: false,
       category: "EXPENSE",
       date: { gte: start, lt: end },
     },
-    _sum: { amount: true },
+    select: { amount: true, date: true },
   })
-
-  return result._sum.amount ?? 0
 }

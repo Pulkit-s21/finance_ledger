@@ -1,5 +1,13 @@
 import api from "./axios"
 
+export type BudgetPace = {
+  daysInMonth: number
+  daysElapsed: number
+  cumulative: (number | null)[]
+  projectedTotal: number | null
+  onPace: boolean | null
+}
+
 export type BudgetStatus = {
   month: number
   year: number
@@ -7,6 +15,7 @@ export type BudgetStatus = {
   spent: number
   percentage: number
   thresholdReached: boolean
+  pace: BudgetPace
 }
 
 export const setBudget = async (month: number, year: number, amount: number) => {

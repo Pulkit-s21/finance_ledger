@@ -4,6 +4,7 @@ import { useToast } from "../context/ToastContext"
 import { formatAmount } from "../lib/format"
 import type { Record } from "../config/config"
 import { months } from "../config/config"
+import BudgetPaceChart from "./BudgetPaceChart"
 
 type Props = {
   records: Record[]
@@ -143,6 +144,35 @@ export default function BudgetTracker({ records }: Props) {
             className={`h-full rounded-full transition-all ${barColor}`}
             style={{ width: `${Math.min(percentage * 100, 100)}%` }}
           />
+        </div>
+      )}
+
+      {hasLimit && status && (
+        <div className="mt-5 border-t border-border pt-5">
+          <BudgetPaceChart pace={status.pace} limit={status.limit!} />
+
+          <p className="mt-2 text-sm text-muted">
+            {status.pace.projectedTotal === null ? (
+              "A few more days of spending will unlock a month-end projection."
+            ) : status.pace.onPace ? (
+              <>
+                On pace to land at{" "}
+                <span className="font-medium text-foreground">
+                  {formatAmount(status.pace.projectedTotal)}
+                </span>{" "}
+                — under your {formatAmount(status.limit!)} limit.
+              </>
+            ) : (
+              <>
+                On pace to reach{" "}
+                <span className="font-medium text-danger">
+                  {formatAmount(status.pace.projectedTotal)}
+                </span>{" "}
+                — {formatAmount(status.pace.projectedTotal - status.limit!)}{" "}
+                over your limit.
+              </>
+            )}
+          </p>
         </div>
       )}
     </div>
