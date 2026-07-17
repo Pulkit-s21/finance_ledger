@@ -48,11 +48,29 @@ export default function RecordsGrid({ records, setRecords }: Props) {
 
   if (records.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border py-16 text-center">
-        <p className="font-medium text-foreground">No records found</p>
-        <p className="text-sm text-muted">
-          Add a record above or try a different category filter
-        </p>
+      <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border bg-card/50 py-16 text-center">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-accent">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-5 w-5"
+          >
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <path d="M3 9h18" />
+            <path d="M8 4v16" />
+          </svg>
+        </span>
+        <div>
+          <p className="font-medium text-foreground">No records found</p>
+          <p className="mt-0.5 text-sm text-muted">
+            Add a record above or try a different filter
+          </p>
+        </div>
       </div>
     )
   }

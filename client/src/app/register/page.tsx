@@ -25,7 +25,7 @@ export default function Register() {
     try {
       const res = await createUser(formData)
       if (res.status === 201) {
-        router.push("/login")
+        router.push("/")
 
         setFormData({ name: "", email: "", password: "" })
       }

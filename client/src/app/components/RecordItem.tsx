@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { categoryStyles, Record } from "../config/config"
 import { deleteRecord, updateRecord } from "../lib/record"
+import { formatAmount } from "../lib/format"
+import CategoryIcon from "./CategoryIcon"
 import RecordForm from "./RecordForm"
 
 type Props = {
@@ -61,16 +63,18 @@ export default function RecordItem({ record, setRecords }: Props) {
   }
 
   const style = categoryStyles[record.category]
+  const accentBorder = style.dot.replace("bg-", "border-")
 
   return (
     <div
       key={record.id}
-      className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md"
+      className={`flex flex-col gap-3 rounded-2xl border border-border border-l-4 ${accentBorder} bg-card p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md`}
     >
       <div className="flex items-center justify-between">
         <span
-          className={`rounded-full px-2.5 py-1 text-xs font-medium ${style.badge}`}
+          className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${style.badge}`}
         >
+          <CategoryIcon category={record.category} className="h-3 w-3" />
           {record.category}
         </span>
         <span className="text-xs text-muted">
@@ -78,9 +82,9 @@ export default function RecordItem({ record, setRecords }: Props) {
         </span>
       </div>
 
-      <span className={`text-2xl font-semibold ${style.amount}`}>
+      <span className={`text-2xl font-semibold tracking-tight ${style.amount}`}>
         {style.sign}
-        {record.amount}
+        {formatAmount(record.amount)}
       </span>
 
       {record.description && (

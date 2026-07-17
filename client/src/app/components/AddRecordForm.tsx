@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { categories, Record } from "../config/config"
 import { registerRecord } from "../lib/record"
+import { useToast } from "../context/ToastContext"
 import RecordForm from "./RecordForm"
 
 type Props = {
@@ -17,6 +18,7 @@ export default function AddRecordForm({ setRecords }: Props) {
     deleted: false,
   })
   const [isLoading, setIsLoading] = useState(false)
+  const { showToast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,6 +34,9 @@ export default function AddRecordForm({ setRecords }: Props) {
       const { record } = await registerRecord(recordData)
 
       setRecords((prev) => [record, ...prev])
+      showToast(`${category} of ${amount} added`, "success")
+    } catch {
+      showToast("Failed to add record. Please try again.", "error")
     } finally {
       setIsLoading(false)
     }
@@ -40,7 +45,7 @@ export default function AddRecordForm({ setRecords }: Props) {
   return (
     <div className="w-full rounded-2xl border border-border bg-card p-6 shadow-sm">
       <div className="mb-5 flex items-center gap-2.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/10 text-accent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

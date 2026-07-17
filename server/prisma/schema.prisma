@@ -7,17 +7,18 @@ datasource db {
   provider = "postgresql"
 }
 
-model User { 
-  id        String     @id @default(cuid()) 
+model User {
+  id        String     @id @default(cuid())
   email     String     @unique
   name      String
   password  String
 
   records   Record[]
+  budgets   Budget[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-} 
+}
 
 model Record {
   id                String     @id @default(cuid())
@@ -32,6 +33,21 @@ model Record {
 
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
+}
+
+model Budget {
+  id        String   @id @default(cuid())
+  amount    Decimal
+  month     Int
+  year      Int
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, month, year])
 }
 
 enum Types {

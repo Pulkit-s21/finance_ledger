@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(curl -s http://localhost:3001/login)"
+      "Bash(curl -s http://localhost:3001/login)",
+      "Bash(npx tsc *)",
+      "Bash(wc -l /tmp_tsc_out.txt)",
+      "Bash(cat /tmp_tsc_out.txt)",
+      "Bash(npx eslint *)"
     ]
   }
 }

@@ -80,3 +80,31 @@ export type Record = {
   description: string | null
   deleted: true | false
 }
+
+export const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+] as const
+
+export type SortOption =
+  | "date-desc"
+  | "date-asc"
+  | "amount-desc"
+  | "amount-asc"
+
+export const sortOptions: { value: SortOption; label: string }[] = [
+  { value: "date-desc", label: "Date (Newest first)" },
+  { value: "date-asc", label: "Date (Oldest first)" },
+  { value: "amount-desc", label: "Amount (High to Low)" },
+  { value: "amount-asc", label: "Amount (Low to High)" },
+]
