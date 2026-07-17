@@ -13,7 +13,6 @@ import Spinner from "../components/Spinner"
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
 import Logout from "../components/Logout"
 import Chart from "../components/Chart"
-// import ChatWidget from "../components/ChatWidget"
 import BudgetTracker from "../components/BudgetTracker"
 import ExportButtons from "../components/ExportButtons"
 import BalanceHero from "../components/BalanceHero"
@@ -299,8 +298,6 @@ export default function Dashboard() {
           <RecordsGrid records={filteredRecords} setRecords={setRecords} />
         )}
       </div>
-
-      {/* <ChatWidget /> */}
     </div>
   )
 }
